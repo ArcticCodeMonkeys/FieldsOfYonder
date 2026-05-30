@@ -86,17 +86,17 @@ public:
         for (const auto& tile : tiles) {
             for (const auto& resource : tile.resources) {
                 if (resource.getName() == "Ore") {
-                    setOre(getOre().getQuantity() + static_cast<int>(smarts * power * population.getQuantity()));
+                    setOre(getOre().getQuantity() + static_cast<int>((1+smarts) * (1 + power/2) * population.getQuantity()));
                 } else if (resource.getName() == "Wood") {
-                    setWood(getWood().getQuantity() + static_cast<int>(smarts * power * population.getQuantity()));
+                    setWood(getWood().getQuantity() + static_cast<int>((1+smarts) * (1 + power/2) * population.getQuantity()));
                 } else if (resource.getName() == "Livestock") {
-                    setLivestock(getLivestock().getQuantity() + static_cast<int>(smarts * power * population.getQuantity()));
+                    setLivestock(getLivestock().getQuantity() + static_cast<int>((1+smarts) * (1 + power/2) * population.getQuantity()));
                 } else if (resource.getName() == "Crop") {
-                    setCrop(getCrop().getQuantity() + static_cast<int>(smarts * power * population.getQuantity()));
+                    setCrop(getCrop().getQuantity() + static_cast<int>((1+smarts) * (1 + power/2) * population.getQuantity()));
                 } else if (resource.getName() == "Water") {
-                    setWater(getWater().getQuantity() + static_cast<int>(smarts * power * population.getQuantity()));
+                    setWater(getWater().getQuantity() + static_cast<int>((1+smarts) * (1 + power/2) * population.getQuantity()));
                 } else if (resource.getName() == "Population") {
-                    setPopulation(getPopulation().getQuantity() + static_cast<int>(tradition * happiness * population.getQuantity()));
+                    setPopulation(getPopulation().getQuantity() + static_cast<int>((1+tradition) * (1 + happiness) * population.getQuantity()));
                 }
             }
         }

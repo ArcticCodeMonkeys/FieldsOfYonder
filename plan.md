@@ -61,4 +61,10 @@ World Actions:
 A civ can take as many actions as it wishes, but often its weights will prefer to take no actions at that point.
 
 
+## Additional Goals
+
+- Let the user input starting parameters
+- Let the user act for a civilization
+- Let the user trigger World Actions
+
 
