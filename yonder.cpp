@@ -37,6 +37,41 @@ public:
         return -1;
     }
 
+    // Return a vector of pairs of civilizations and their resources, can be used for displaying global resource information, making decisions based on global resources, etc.
+    std::vector<std::pair<std::Civilization, std::vector<std::Resource>>> getGlobalResources() const {
+        // Calculate total resources held by summing up resources from all civilizations
+        std::vector<std::pair<std::Civilization, std::vector<std::Resource>>>globalResources;
+        for (const auto& civ : civilizations) {
+            globalResources.emplace_back();
+            globalResources.back().first = civ;
+            globalResources.back().second.push_back(civ.getOre());
+            globalResources.back().second.push_back(civ.getWood());
+            globalResources.back().second.push_back(civ.getLivestock());
+            globalResources.back().second.push_back(civ.getCrop());
+            globalResources.back().second.push_back(civ.getWater());
+            globalResources.back().second.push_back(civ.getPopulation());
+
+        }
+        return globalResources;
+    }
+
+    std:vector<<std::pair <std::Resource, double>> getGlobalAverages() const {
+        auto globalResources = getGlobalResources();
+        std::vector<std::pair<std::Resource, double>> globalAverages;
+        for (size_t i = 0; i < 5; i++) { // For each resource
+            // 0 = Ore, 1 = Wood, 2 = Livestock, 3 = Crop, 4 = Water
+            double total = 0;
+            for (const auto& civ : globalResources) {
+                total += civ.second[i].getQuantity();
+            }
+            globalAverages.emplace_back();
+            globalAverages.back().first = globalResources[0].second[i]; // Get the resource type from the first civilization, they should all be the same
+            globalAverages.back().second = total / civilizations.size(); // Average quantity of the resource across all civilizations
+        }
+        
+        return globalAverages;
+    }
+
     void checkForEvents() {
         // Check if a random event should occur based on eventChance
         // If an event occurs, modify resources, population, tension, prosperity, etc. accordingly
@@ -60,6 +95,7 @@ public:
 
     void run() {
         // Main game loop
+        std::vector<std::Civilization> civilizations; // This should be initialized with the civilizations in the world
         while (true) {
             // Update civilizations, handle interactions, etc.
             // Order of operations:
@@ -72,25 +108,31 @@ public:
             tension += 0.01; // Increase tension over time, can be reset by events
             prosperity += 0.01; // Increase prosperity over time, can be reset by events
             checkForEvents();
-            std::vector<Civilization> actingCivs = civilizations; // Create a copy of the civilizations vector to track which ones have acted
+            for (auto& civ : civilizations) {
+                Civilization::produceResources(civ);
+            }
+
+            // Vector of civs and their attempted actions
+            std::vector<std::pair<std::Civilization, std::vector<std::tuple<int, int, int>>>> actingCivs = civilizations; 
+            // Each civilization gets to act once, then the next acts, and so on until all civilizations have decided to not act, then the loop restarts and time advances
             while(!actingCivs.empty()) {
-                for (auto& civ : civilizations) {
-                    Civilization::produceResources(civ);
-                    if (Civilization::act(civ) == "0)") {
+                for (auto& civ : actingCivs) {
+                    if (Civilization::civ.act(getGlobalAverages()) == "0)") {
                         // If the civilization decides to not act, remove it from the actingCivs vector
                         actingCivs.erase(std::remove_if(actingCivs.begin(), actingCivs.end(),
-                            [&civ](const Civilization& c) { return c.getName() == civ.getName(); }), actingCivs.end());
+                            [&civ](const std::pair<std::Civilization, std::vector<std::tuple<int, int, int>>>& c) { return c.first.getName() == civ.getName(); }), actingCivs.end());
                         break;
                     }
                 }
             }
         }
     }
-    private:
-        std::vector<Tile> tiles;
-        std::vector<Civilization> civilizations;
-        double time; // Game time, can be used for events, seasons, etc.
-        double tension; // Global tension level, can affect diplomacy and conflict
-        double prosperity; // Global prosperity level, can affect resource generation and happiness
-        double eventChance; // Chance of random events occurring, can affect resources and population
+private:
+    std::vector<Tile> tiles;
+    std::vector<Civilization> civilizations;
+    double time; // Game time, can be used for events, seasons, etc.
+    // TODO: Implement these
+    double tension; // Global tension level, can affect diplomacy and conflict
+    double prosperity; // Global prosperity level, can affect resource generation and happiness
+    double eventChance; // Chance of random events occurring, can affect resources and population
 };

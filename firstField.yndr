@@ -1,0 +1,9 @@
+Civ {
+    Name: "Rome"
+    Ore: 10
+    Wood: 10
+    Livestock: 10
+    Crop: 10
+    Water: 10
+    
+}
