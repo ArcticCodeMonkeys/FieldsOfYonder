@@ -1,16 +1,31 @@
 
-#include "resource.cpp"
-#include "civ.cpp"
-#include <vector>
+#include "tile.h"
 
-class Tile {
-public:
-    Tile(int x, int y) : x(x), y(y) {}
+using namespace std;
 
-    int getX() const { return x; }
-    int getY() const { return y; }
-    int x;
-    int y;
-    std::vector<Resource> resources; // Array of resources on the tile
-    Civilization* owner; // Pointer to the civilization that owns the tile
-};
+Tile::Tile(int x, int y, string type, string ownerName)
+    : x(x), y(y), type(type), ownerName(ownerName) {}
+
+int Tile::getX() const {
+    return x;
+}
+
+int Tile::getY() const {
+    return y;
+}
+
+const string Tile::getType() const {
+    return type;
+}
+
+void Tile::setType(string t) {
+    type = t;
+}
+
+const string& Tile::getOwnerName() const {
+    return ownerName;
+}
+
+void Tile::setOwnerName(const string& name) {
+    ownerName = name;
+}
