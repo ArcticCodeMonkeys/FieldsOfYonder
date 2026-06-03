@@ -1,63 +1,3 @@
-Civ {
-    Name: "Rome"
-    Ore: 10
-    Wood: 10
-    Livestock: 10
-    Crop: 10
-    Water: 10
-    Smarts: 0.4
-    Power: 0.4
-    Happiness: 0.5
-    Agression: 0.5
-    Diplomacy: 0.5
-    Fiscal: 0.5
-    Tradition: 0.2
-    Flexibility: 0.2
-    Relationships {
-        Greece: 0.7
-        Spain: 0.2
-    }
-}
-Civ {
-    Name: "Greece"
-    Ore: 10
-    Wood: 10
-    Livestock: 10
-    Crop: 10
-    Water: 10
-    Smarts: 0.6
-    Power: 0.4
-    Happiness: 0.5
-    Agression: 0.2
-    Diplomacy: 0.5
-    Fiscal: 0.2
-    Tradition: 0.5
-    Flexibility: 0.2
-    Relationships {
-        Greece: 0.7
-        Spain: 0.2
-    }
-}
-Civ {
-    Name: "Spain"
-    Ore: 10
-    Wood: 10
-    Livestock: 10
-    Crop: 10
-    Water: 10
-    Smarts: 0.4
-    Power: 0.6
-    Happiness: 0.2
-    Agression: 0.5
-    Diplomacy: 0.5
-    Fiscal: 0.2
-    Tradition: 0.5
-    Flexibility: 0.2
-    Relationships {
-        Greece: 0.7
-        Spain: 0.2
-    }
-}
 Tiles {
     Row {
         Field
@@ -106,6 +46,72 @@ Tiles {
         Field
         Ore
         Ore
+    }
+}
+Civ {
+    Name: Rome
+    Color: Red
+    Ore: 10
+    Wood: 10
+    Livestock: 10
+    Crop: 10
+    Water: 10
+    Smarts: 0.4
+    Power: 0.4
+    Happiness: 0.5
+    Aggression: 0.5
+    Diplomacy: 0.5
+    Fiscal: 0.5
+    Tradition: 0.2
+    Flexibility: 0.2
+    CivCenter: 3 2
+    Relationships {
+        Greece: 0.7
+        Spain: 0.2
+    }
+}
+Civ {
+    Name: Greece
+    Color: Blue
+    Ore: 10
+    Wood: 10
+    Livestock: 10
+    Crop: 10
+    Water: 10
+    Smarts: 0.6
+    Power: 0.4
+    Happiness: 0.5
+    Aggression: 0.2
+    Diplomacy: 0.5
+    Fiscal: 0.2
+    Tradition: 0.5
+    Flexibility: 0.2
+    CivCenter: 4 1
+    Relationships {
+        Greece: 0.7
+        Spain: 0.2
+    }
+}
+Civ {
+    Name: Spain
+    Color: Yellow
+    Ore: 10
+    Wood: 10
+    Livestock: 10
+    Crop: 10
+    Water: 10
+    Smarts: 0.4
+    Power: 0.6
+    Happiness: 0.2
+    Aggression: 0.5
+    Diplomacy: 0.5
+    Fiscal: 0.2
+    Tradition: 0.5
+    Flexibility: 0.2
+    CivCenter: 0 0
+    Relationships {
+        Greece: 0.7
+        Spain: 0.2
     }
 }
 World {

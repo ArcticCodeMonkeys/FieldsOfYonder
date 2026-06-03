@@ -1,0 +1,5 @@
+- Fix Civ colors and map colors to be very different
+- Use circles for city centers. For owned tiles, colour the black tile behind it = civ.color
+- Make tile borders thicker to make the above change clearer
+- Work on gameplay loop + figure out how to do relationships.
+- Design template / rules for .yndr files

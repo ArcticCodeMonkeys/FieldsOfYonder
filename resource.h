@@ -12,7 +12,7 @@ using namespace std;
 class Resources {
 public:
 	Resources();
-	Resources getResources();
+	map<string, int> getResources();
     void setResources(const map<string, int>& newResources);
     int getResourceQuantity(string type) const;
     void setResourceQuantity(string type, int quantity);

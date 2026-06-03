@@ -3,8 +3,20 @@
 #include <algorithm>
 #include "globals.h"
 
-Civilization::Civilization(const std::string& name, double aggression = 0.5, double diplomacy = 0.5, double fiscal = 0.5, double tradition = 0.5, double flexibility = 0.5, std::map<std::string, Civilization*> civMap = {}, std::map<int, std::string> civList = {}, std::vector<std::pair<Civilization*, double>> relationships = {}, Resources resources = Resources(), std::vector<Tile*> tiles = {}, Tile* civCenter = new Tile(0, 0, "Field"))
-    : name(name),
+Civilization::Civilization(
+    const std::string& name,
+    double aggression,
+    double diplomacy,
+    double fiscal,
+    double tradition,
+    double flexibility,
+    std::map<std::string, Civilization*> civMap,
+    std::map<int, std::string> civList,
+    std::vector<std::pair<Civilization*, double>> relationships,
+    Resources resources,
+    std::vector<Tile*> tiles,
+    Tile* civCenter
+)    : name(name),
       aggression(aggression),
       diplomacy(diplomacy),
       fiscal(fiscal),
@@ -21,6 +33,10 @@ std::string Civilization::getName() const {
     return name;
 }
 
+void Civilization::setName(const std::string& name) {
+    this->name = name;
+}
+
 std::vector<Tile*> Civilization::getTiles() const {
     return tiles;
 }
@@ -34,11 +50,12 @@ void Civilization::addTile(Tile* tile) {
 }
 
 void Civilization::removeTile(int x, int y) {
-    tiles.erase(std::remove_if(tiles.begin(), tiles.end(),
-                               [x, y](const Tile& t) {
-                                   return t.getX() == x && t.getY() == y;
-                               }),
-                tiles.end());
+    for (auto it = tiles.begin(); it != tiles.end(); ++it) {
+        if ((*it)->getX() == x && (*it)->getY() == y) {
+            tiles.erase(it);
+            return;
+        }
+    }
 }
 
 void Civilization::setCivCenter(Tile* center) {
@@ -83,6 +100,10 @@ void Civilization::setTradition(double value) {
 
 void Civilization::setFlexibility(double value) {
     flexibility = value;
+}
+
+void Civilization::setCivCenter(const Tile* center) {
+    civCenter = const_cast<Tile*>(center);
 }
 
 double Civilization::getResourceRelative(const string& resourceType) const {
@@ -203,6 +224,14 @@ int Civilization::act(std::vector<std::tuple<int, int, int>>& attemptedActions) 
     attemptAction(actionIndex);
     attemptedActions.push_back(actionIndex);
     return 1;
+}
+
+void Civilization::setRelationships(const vector<std::pair<Civilization*, double>>& newRelationships) {
+    relationships = newRelationships;
+}
+
+std::vector<std::pair<Civilization*, double>> Civilization::getRelationships() const {
+    return relationships;
 }
 
 int Civilization::getResource(string type) const {
